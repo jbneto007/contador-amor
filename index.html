@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>João ❤ Alice</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #ffdde6, #ffc2d1, #ff9eb5);
+      position: relative;
+    }
+
+    .container {
+      width: min(92%, 760px);
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 28px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      color: #fff;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #fff7fa;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      margin-bottom: 28px;
+    }
+
+    .counter-box {
+      background: rgba(255,255,255,0.78);
+      border-radius: 24px;
+      padding: 26px 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .time-card {
+      background: linear-gradient(180deg, #fff, #ffe6ee);
+      border-radius: 20px;
+      padding: 18px 10px;
+      box-shadow: 0 8px 20px rgba(255, 90, 130, 0.15);
+    }
+
+    .number {
+      display: block;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      font-weight: bold;
+      color: #d6336c;
+    }
+
+    .label {
+      font-size: 0.95rem;
+      color: #8a3d57;
+      margin-top: 6px;
+    }
+
+    .message {
+      margin-top: 22px;
+      font-size: 1.08rem;
+      color: #8a214b;
+      line-height: 1.5;
+    }
+
+    .since {
+      margin-top: 16px;
+      color: #fff;
+      font-size: 0.98rem;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(255,255,255,0.85);
+      animation: floatUp linear infinite;
+      user-select: none;
+      z-index: 1;
+      text-shadow: 0 6px 14px rgba(214, 51, 108, 0.18);
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(110vh) scale(0.8);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-15vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .counter-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>João ❤ Alice</h1>
+    <p class="subtitle">Cada segundo com você faz meu mundo mais bonito.</p>
+
+    <div class="counter-box">
+      <h2>Estamos juntos há:</h2>
+      <div class="counter-grid">
+        <div class="time-card">
+          <span class="number" id="days">0</span>
+          <span class="label">dias</span>
+        </div>
+        <div class="time-card">
+          <span class="number" id="hours">0</span>
+          <span class="label">horas</span>
+        </div>
+        <div class="time-card">
+          <span class="number" id="minutes">0</span>
+          <span class="label">minutos</span>
+        </div>
+        <div class="time-card">
+          <span class="number" id="seconds">0</span>
+          <span class="label">segundos</span>
+        </div>
+      </div>
+
+      <p class="message">
+        Desde 14 de novembro de 2025, vivendo dias especiais, memórias lindas e muito amor. ❤
+      </p>
+    </div>
+
+    <p class="since">Início do namoro: 14/11/2025</p>
+  </div>
+
+  <script>
+    const startDate = new Date('2025-11-14T00:00:00');
+
+    function updateCounter() {
+      const now = new Date();
+      let diff = now - startDate;
+
+      if (diff < 0) diff = 0;
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+
+    function createHearts() {
+      const total = 24;
+      for (let i = 0; i < total; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = '❤';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (18 + Math.random() * 26) + 'px';
+        heart.style.animationDuration = (7 + Math.random() * 8) + 's';
+        heart.style.animationDelay = (Math.random() * 8) + 's';
+        document.body.appendChild(heart);
+      }
+    }
+
+    createHearts();
+    updateCounter();
+    setInterval(updateCounter, 1000);
+  </script>
+</body>
+</html>
